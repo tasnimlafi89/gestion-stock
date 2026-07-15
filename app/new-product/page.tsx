@@ -4,22 +4,26 @@ import Wrapper from '../components/Wrapper'
 import { useUser } from '@clerk/nextjs';
 import { Category } from '@/src/generated/prisma/client';
 import { FormDataType } from '@/type';
-import { readCategory } from '../action';
+import { createProduct, readCategory } from '../action';
+import { FileImage } from 'lucide-react';
+import ProductImage from '../components/ProductImage';
+import { toast } from 'react-toastify';
+import { useRouter } from 'next/navigation';
 
 const page = () => {
     const { user } = useUser();
     const email = user?.primaryEmailAddress?.emailAddress as string;
 
+    const router = useRouter()
     const [file, setFile] = useState<File | null>(null);
     const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-    const [loading, setLoading] = useState<boolean>(false);
     const [categories, setCategories] = useState<Category[]>([]);
     const [formData, setFormData] = useState<FormDataType>({
         name: "",
         description: "",
         price: 0,
         categoryId: "",
-        unit: ""
+        imageUrl: ""
     });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -47,8 +51,40 @@ const page = () => {
         setFile(selectedFile)
         if (selectedFile)
             setPreviewUrl(URL.createObjectURL(selectedFile));
+    }
+
+    const handleSubmit = async () => {
+        if (!file) {
+            toast.error("Veuillez sélectionner une image pour le produit.");
+            return
         }
-    
+        try {
+
+            const imageData = new FormData();
+            imageData.append("file", file);
+            const res = await fetch("/api/upload", {
+                method: "POST",
+                body: imageData
+            })
+
+            const data = await res.json()
+            if (!data.success) {
+                throw new Error("Erreur lors de l'upload de l'image.")
+            } else {
+                formData.imageUrl = data.path
+                await createProduct(formData, email)
+                toast.success("Produit ajouté avec succès.");
+                router.push("/products")
+            }
+
+
+        } catch (error) {
+            console.log(error)
+            toast.error("Erreur lors de la création du produit.");
+            
+        }
+    }
+
     return (
         <Wrapper>
             <div className='flex justify-cenetr items-center'>
@@ -88,28 +124,43 @@ const page = () => {
                                 id=""
                                 className="select select-bordered w-full"
                                 value={formData.categoryId}
-                                onChange={handleChange} 
+                                onChange={handleChange}
                             >
                                 <option value="">Sélectionner une catégorie</option>
                                 {categories.map((cat) => {
                                     return <option
                                         key={cat.id}
-                                        value={cat.name}
+                                        value={cat.id}
                                     >
                                         {cat.name}
                                     </option>
                                 })}
                             </select>
-                            <input 
-                            type="file" 
-                            accept="image/"
-                            id=""
-                            className="file-input file-input-bordered w-full"
-                            onChange={handleFileChange}
+                            <input
+                                type="file"
+                                accept="image/*"
+                                className="file-input file-input-bordered w-full"
+                                onChange={handleFileChange}
                             />
-                            <button className="btn btn-primary">
+                            <button className="btn btn-primary" onClick={handleSubmit}>
                                 Créer le produit
                             </button>
+                        </div>
+                        <div className="md:ml-4 md:w-[300px] mt-4 md:mt-0 border-2 border-primary md:h-[300px] p-5 flex justify-center items-center rounded-3xl">
+                            {previewUrl && previewUrl !== "" ? (
+                                <div>
+                                    <ProductImage
+                                        src={previewUrl}
+                                        alt="preview"
+                                        heightClass="h-40"
+                                        widthClass="w-40"
+                                    />
+                                </div>
+                            ) : (
+                                <div className="wiggle-animation">
+                                    <FileImage strokeWidth={1} className='h-10 w-10 text-primary' />
+                                </div>
+                            )}
                         </div>
                     </section>
                 </div>
