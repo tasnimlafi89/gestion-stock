@@ -93,7 +93,7 @@ const page = () => {
     if (initialLoading) {
         return (
             <div className="flex justify-center items-center min-h-screen w-full">
-                <span className="loading loading-ring" style={{ width: '3rem', height: '3rem' }}></span>
+                <span className="loading loading-ring" style={{ width: '4rem', height: '4rem' }}></span>
             </div>
         )
     }
