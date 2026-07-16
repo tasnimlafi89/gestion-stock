@@ -67,11 +67,10 @@ const page = ({ params }: { params: Promise<{ productId: string }> }) => {
             setPreviewUrl(URL.createObjectURL(selectedFile));
     }
     const handleSubmit = async (e: React.FormEvent) => {
-
-        let imageUrl = formData?.imageUrl
-
         e.preventDefault()
         try {
+            let imageUrl = formData.imageUrl
+
             if (file) {
                 const resDelete = await fetch("/api/upload", {
                     method: "DELETE",
@@ -80,7 +79,7 @@ const page = ({ params }: { params: Promise<{ productId: string }> }) => {
                 })
                 const dataDelete = await resDelete.json()
                 if (!dataDelete.success) {
-                    throw new Error("Erreur lors de la suppression de l’image.")
+                    throw new Error("Erreur lors de la suppression de l'image.")
                 }
 
                 const imageData = new FormData()
@@ -92,16 +91,16 @@ const page = ({ params }: { params: Promise<{ productId: string }> }) => {
 
                 const data = await res.json()
                 if (!data.success) {
-                    throw new Error("Erreur lors de l’upload de l’image.")
+                    throw new Error("Erreur lors de l'upload de l'image.")
                 }
 
                 imageUrl = data.path
-                formData.imageUrl = imageUrl
-
-                await updateProduct(formData, email)
-                toast.success("Produit mis à jour avec succès !")
-                router.push("/products")
             }
+
+            const updatedFormData = { ...formData, imageUrl }
+            await updateProduct(updatedFormData, email)
+            toast.success("Produit mis à jour avec succès !")
+            router.push("/products")
         } catch (error: any) {
             console.error(error)
             toast.error(error.message)
@@ -135,6 +134,7 @@ const page = ({ params }: { params: Promise<{ productId: string }> }) => {
                                 id=""
                                 placeholder="Description"
                                 className="textarea textarea-bordered w-full h-[100px]"
+                                value={formData.description}
                                 onChange={handleInputChange}
                             />
                             <div className="text-sm font-semibold mb-2">Catégorie</div>
@@ -206,8 +206,8 @@ const page = ({ params }: { params: Promise<{ productId: string }> }) => {
                 </Wrapper>
             ) : (
 
-                <div className="flex justify-center items-center w-full">
-                    <span className="loading loading-ring loading-xl"></span>
+                <div className="flex justify-center items-center min-h-screen w-full">
+                    <span className="loading loading-ring" style={{ width: '3rem', height: '3rem' }}></span>
                 </div>
 
             )}

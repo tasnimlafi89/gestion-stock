@@ -9,15 +9,17 @@ import { FileImage } from 'lucide-react';
 import ProductImage from '../components/ProductImage';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
+import RequireAuth from '../components/RequireAuth';
 
 const page = () => {
-    const { user } = useUser();
+    const { isLoaded, user } = useUser();
     const email = user?.primaryEmailAddress?.emailAddress as string;
 
     const router = useRouter()
     const [file, setFile] = useState<File | null>(null);
     const [previewUrl, setPreviewUrl] = useState<string | null>(null);
     const [categories, setCategories] = useState<Category[]>([]);
+    const [initialLoading, setInitialLoading] = useState(true)
     const [formData, setFormData] = useState<FormDataType>({
         name: "",
         description: "",
@@ -41,10 +43,14 @@ const page = () => {
                 }
             } catch (error) {
                 console.error("Erreur lors du chargement des catégories", error)
+            } finally {
+                setInitialLoading(false)
             }
         }
-        fetchCategories();
-    }, [email])
+        if (isLoaded) {
+            fetchCategories();
+        }
+    }, [email, isLoaded])
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const selectedFile = e.target.files?.[0] || null;
@@ -81,11 +87,18 @@ const page = () => {
         } catch (error) {
             console.log(error)
             toast.error("Erreur lors de la création du produit.");
-            
+
         }
     }
-
+    if (initialLoading) {
+        return (
+            <div className="flex justify-center items-center min-h-screen w-full">
+                <span className="loading loading-ring" style={{ width: '3rem', height: '3rem' }}></span>
+            </div>
+        )
+    }
     return (
+        <RequireAuth>
         <Wrapper>
             <div className='flex justify-cenetr items-center'>
                 <div>
@@ -166,6 +179,7 @@ const page = () => {
                 </div>
             </div>
         </Wrapper>
+        </RequireAuth>
     )
 }
 

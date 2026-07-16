@@ -169,6 +169,11 @@ export type AssociationWhereInput = {
   products?: Prisma.ProductListRelationFilter
   categories?: Prisma.CategoryListRelationFilter
   transactions?: Prisma.TransactionListRelationFilter
+  favorites?: Prisma.FavoriteListRelationFilter
+  basketItems?: Prisma.BasketItemListRelationFilter
+  ordersAsBuyer?: Prisma.OrderListRelationFilter
+  ordersAsSeller?: Prisma.OrderListRelationFilter
+  notifications?: Prisma.NotificationListRelationFilter
 }
 
 export type AssociationOrderByWithRelationInput = {
@@ -178,6 +183,11 @@ export type AssociationOrderByWithRelationInput = {
   products?: Prisma.ProductOrderByRelationAggregateInput
   categories?: Prisma.CategoryOrderByRelationAggregateInput
   transactions?: Prisma.TransactionOrderByRelationAggregateInput
+  favorites?: Prisma.FavoriteOrderByRelationAggregateInput
+  basketItems?: Prisma.BasketItemOrderByRelationAggregateInput
+  ordersAsBuyer?: Prisma.OrderOrderByRelationAggregateInput
+  ordersAsSeller?: Prisma.OrderOrderByRelationAggregateInput
+  notifications?: Prisma.NotificationOrderByRelationAggregateInput
 }
 
 export type AssociationWhereUniqueInput = Prisma.AtLeast<{
@@ -190,6 +200,11 @@ export type AssociationWhereUniqueInput = Prisma.AtLeast<{
   products?: Prisma.ProductListRelationFilter
   categories?: Prisma.CategoryListRelationFilter
   transactions?: Prisma.TransactionListRelationFilter
+  favorites?: Prisma.FavoriteListRelationFilter
+  basketItems?: Prisma.BasketItemListRelationFilter
+  ordersAsBuyer?: Prisma.OrderListRelationFilter
+  ordersAsSeller?: Prisma.OrderListRelationFilter
+  notifications?: Prisma.NotificationListRelationFilter
 }, "id" | "email">
 
 export type AssociationOrderByWithAggregationInput = {
@@ -217,6 +232,11 @@ export type AssociationCreateInput = {
   products?: Prisma.ProductCreateNestedManyWithoutAssociationInput
   categories?: Prisma.CategoryCreateNestedManyWithoutAssociationInput
   transactions?: Prisma.TransactionCreateNestedManyWithoutAssociationInput
+  favorites?: Prisma.FavoriteCreateNestedManyWithoutAssociationInput
+  basketItems?: Prisma.BasketItemCreateNestedManyWithoutAssociationInput
+  ordersAsBuyer?: Prisma.OrderCreateNestedManyWithoutBuyerInput
+  ordersAsSeller?: Prisma.OrderCreateNestedManyWithoutSellerInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutAssociationInput
 }
 
 export type AssociationUncheckedCreateInput = {
@@ -226,6 +246,11 @@ export type AssociationUncheckedCreateInput = {
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutAssociationInput
   categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutAssociationInput
   transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutAssociationInput
+  favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutAssociationInput
+  basketItems?: Prisma.BasketItemUncheckedCreateNestedManyWithoutAssociationInput
+  ordersAsBuyer?: Prisma.OrderUncheckedCreateNestedManyWithoutBuyerInput
+  ordersAsSeller?: Prisma.OrderUncheckedCreateNestedManyWithoutSellerInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutAssociationInput
 }
 
 export type AssociationUpdateInput = {
@@ -235,6 +260,11 @@ export type AssociationUpdateInput = {
   products?: Prisma.ProductUpdateManyWithoutAssociationNestedInput
   categories?: Prisma.CategoryUpdateManyWithoutAssociationNestedInput
   transactions?: Prisma.TransactionUpdateManyWithoutAssociationNestedInput
+  favorites?: Prisma.FavoriteUpdateManyWithoutAssociationNestedInput
+  basketItems?: Prisma.BasketItemUpdateManyWithoutAssociationNestedInput
+  ordersAsBuyer?: Prisma.OrderUpdateManyWithoutBuyerNestedInput
+  ordersAsSeller?: Prisma.OrderUpdateManyWithoutSellerNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutAssociationNestedInput
 }
 
 export type AssociationUncheckedUpdateInput = {
@@ -244,6 +274,11 @@ export type AssociationUncheckedUpdateInput = {
   products?: Prisma.ProductUncheckedUpdateManyWithoutAssociationNestedInput
   categories?: Prisma.CategoryUncheckedUpdateManyWithoutAssociationNestedInput
   transactions?: Prisma.TransactionUncheckedUpdateManyWithoutAssociationNestedInput
+  favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutAssociationNestedInput
+  basketItems?: Prisma.BasketItemUncheckedUpdateManyWithoutAssociationNestedInput
+  ordersAsBuyer?: Prisma.OrderUncheckedUpdateManyWithoutBuyerNestedInput
+  ordersAsSeller?: Prisma.OrderUncheckedUpdateManyWithoutSellerNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutAssociationNestedInput
 }
 
 export type AssociationCreateManyInput = {
@@ -285,6 +320,11 @@ export type AssociationMinOrderByAggregateInput = {
 export type AssociationNullableScalarRelationFilter = {
   is?: Prisma.AssociationWhereInput | null
   isNot?: Prisma.AssociationWhereInput | null
+}
+
+export type AssociationScalarRelationFilter = {
+  is?: Prisma.AssociationWhereInput
+  isNot?: Prisma.AssociationWhereInput
 }
 
 export type StringFieldUpdateOperationsInput = {
@@ -339,12 +379,87 @@ export type AssociationUpdateOneWithoutTransactionsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.AssociationUpdateToOneWithWhereWithoutTransactionsInput, Prisma.AssociationUpdateWithoutTransactionsInput>, Prisma.AssociationUncheckedUpdateWithoutTransactionsInput>
 }
 
+export type AssociationCreateNestedOneWithoutFavoritesInput = {
+  create?: Prisma.XOR<Prisma.AssociationCreateWithoutFavoritesInput, Prisma.AssociationUncheckedCreateWithoutFavoritesInput>
+  connectOrCreate?: Prisma.AssociationCreateOrConnectWithoutFavoritesInput
+  connect?: Prisma.AssociationWhereUniqueInput
+}
+
+export type AssociationUpdateOneRequiredWithoutFavoritesNestedInput = {
+  create?: Prisma.XOR<Prisma.AssociationCreateWithoutFavoritesInput, Prisma.AssociationUncheckedCreateWithoutFavoritesInput>
+  connectOrCreate?: Prisma.AssociationCreateOrConnectWithoutFavoritesInput
+  upsert?: Prisma.AssociationUpsertWithoutFavoritesInput
+  connect?: Prisma.AssociationWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.AssociationUpdateToOneWithWhereWithoutFavoritesInput, Prisma.AssociationUpdateWithoutFavoritesInput>, Prisma.AssociationUncheckedUpdateWithoutFavoritesInput>
+}
+
+export type AssociationCreateNestedOneWithoutBasketItemsInput = {
+  create?: Prisma.XOR<Prisma.AssociationCreateWithoutBasketItemsInput, Prisma.AssociationUncheckedCreateWithoutBasketItemsInput>
+  connectOrCreate?: Prisma.AssociationCreateOrConnectWithoutBasketItemsInput
+  connect?: Prisma.AssociationWhereUniqueInput
+}
+
+export type AssociationUpdateOneRequiredWithoutBasketItemsNestedInput = {
+  create?: Prisma.XOR<Prisma.AssociationCreateWithoutBasketItemsInput, Prisma.AssociationUncheckedCreateWithoutBasketItemsInput>
+  connectOrCreate?: Prisma.AssociationCreateOrConnectWithoutBasketItemsInput
+  upsert?: Prisma.AssociationUpsertWithoutBasketItemsInput
+  connect?: Prisma.AssociationWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.AssociationUpdateToOneWithWhereWithoutBasketItemsInput, Prisma.AssociationUpdateWithoutBasketItemsInput>, Prisma.AssociationUncheckedUpdateWithoutBasketItemsInput>
+}
+
+export type AssociationCreateNestedOneWithoutOrdersAsBuyerInput = {
+  create?: Prisma.XOR<Prisma.AssociationCreateWithoutOrdersAsBuyerInput, Prisma.AssociationUncheckedCreateWithoutOrdersAsBuyerInput>
+  connectOrCreate?: Prisma.AssociationCreateOrConnectWithoutOrdersAsBuyerInput
+  connect?: Prisma.AssociationWhereUniqueInput
+}
+
+export type AssociationCreateNestedOneWithoutOrdersAsSellerInput = {
+  create?: Prisma.XOR<Prisma.AssociationCreateWithoutOrdersAsSellerInput, Prisma.AssociationUncheckedCreateWithoutOrdersAsSellerInput>
+  connectOrCreate?: Prisma.AssociationCreateOrConnectWithoutOrdersAsSellerInput
+  connect?: Prisma.AssociationWhereUniqueInput
+}
+
+export type AssociationUpdateOneRequiredWithoutOrdersAsBuyerNestedInput = {
+  create?: Prisma.XOR<Prisma.AssociationCreateWithoutOrdersAsBuyerInput, Prisma.AssociationUncheckedCreateWithoutOrdersAsBuyerInput>
+  connectOrCreate?: Prisma.AssociationCreateOrConnectWithoutOrdersAsBuyerInput
+  upsert?: Prisma.AssociationUpsertWithoutOrdersAsBuyerInput
+  connect?: Prisma.AssociationWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.AssociationUpdateToOneWithWhereWithoutOrdersAsBuyerInput, Prisma.AssociationUpdateWithoutOrdersAsBuyerInput>, Prisma.AssociationUncheckedUpdateWithoutOrdersAsBuyerInput>
+}
+
+export type AssociationUpdateOneRequiredWithoutOrdersAsSellerNestedInput = {
+  create?: Prisma.XOR<Prisma.AssociationCreateWithoutOrdersAsSellerInput, Prisma.AssociationUncheckedCreateWithoutOrdersAsSellerInput>
+  connectOrCreate?: Prisma.AssociationCreateOrConnectWithoutOrdersAsSellerInput
+  upsert?: Prisma.AssociationUpsertWithoutOrdersAsSellerInput
+  connect?: Prisma.AssociationWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.AssociationUpdateToOneWithWhereWithoutOrdersAsSellerInput, Prisma.AssociationUpdateWithoutOrdersAsSellerInput>, Prisma.AssociationUncheckedUpdateWithoutOrdersAsSellerInput>
+}
+
+export type AssociationCreateNestedOneWithoutNotificationsInput = {
+  create?: Prisma.XOR<Prisma.AssociationCreateWithoutNotificationsInput, Prisma.AssociationUncheckedCreateWithoutNotificationsInput>
+  connectOrCreate?: Prisma.AssociationCreateOrConnectWithoutNotificationsInput
+  connect?: Prisma.AssociationWhereUniqueInput
+}
+
+export type AssociationUpdateOneRequiredWithoutNotificationsNestedInput = {
+  create?: Prisma.XOR<Prisma.AssociationCreateWithoutNotificationsInput, Prisma.AssociationUncheckedCreateWithoutNotificationsInput>
+  connectOrCreate?: Prisma.AssociationCreateOrConnectWithoutNotificationsInput
+  upsert?: Prisma.AssociationUpsertWithoutNotificationsInput
+  connect?: Prisma.AssociationWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.AssociationUpdateToOneWithWhereWithoutNotificationsInput, Prisma.AssociationUpdateWithoutNotificationsInput>, Prisma.AssociationUncheckedUpdateWithoutNotificationsInput>
+}
+
 export type AssociationCreateWithoutProductsInput = {
   id?: string
   name: string
   email: string
   categories?: Prisma.CategoryCreateNestedManyWithoutAssociationInput
   transactions?: Prisma.TransactionCreateNestedManyWithoutAssociationInput
+  favorites?: Prisma.FavoriteCreateNestedManyWithoutAssociationInput
+  basketItems?: Prisma.BasketItemCreateNestedManyWithoutAssociationInput
+  ordersAsBuyer?: Prisma.OrderCreateNestedManyWithoutBuyerInput
+  ordersAsSeller?: Prisma.OrderCreateNestedManyWithoutSellerInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutAssociationInput
 }
 
 export type AssociationUncheckedCreateWithoutProductsInput = {
@@ -353,6 +468,11 @@ export type AssociationUncheckedCreateWithoutProductsInput = {
   email: string
   categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutAssociationInput
   transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutAssociationInput
+  favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutAssociationInput
+  basketItems?: Prisma.BasketItemUncheckedCreateNestedManyWithoutAssociationInput
+  ordersAsBuyer?: Prisma.OrderUncheckedCreateNestedManyWithoutBuyerInput
+  ordersAsSeller?: Prisma.OrderUncheckedCreateNestedManyWithoutSellerInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutAssociationInput
 }
 
 export type AssociationCreateOrConnectWithoutProductsInput = {
@@ -377,6 +497,11 @@ export type AssociationUpdateWithoutProductsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   categories?: Prisma.CategoryUpdateManyWithoutAssociationNestedInput
   transactions?: Prisma.TransactionUpdateManyWithoutAssociationNestedInput
+  favorites?: Prisma.FavoriteUpdateManyWithoutAssociationNestedInput
+  basketItems?: Prisma.BasketItemUpdateManyWithoutAssociationNestedInput
+  ordersAsBuyer?: Prisma.OrderUpdateManyWithoutBuyerNestedInput
+  ordersAsSeller?: Prisma.OrderUpdateManyWithoutSellerNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutAssociationNestedInput
 }
 
 export type AssociationUncheckedUpdateWithoutProductsInput = {
@@ -385,6 +510,11 @@ export type AssociationUncheckedUpdateWithoutProductsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   categories?: Prisma.CategoryUncheckedUpdateManyWithoutAssociationNestedInput
   transactions?: Prisma.TransactionUncheckedUpdateManyWithoutAssociationNestedInput
+  favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutAssociationNestedInput
+  basketItems?: Prisma.BasketItemUncheckedUpdateManyWithoutAssociationNestedInput
+  ordersAsBuyer?: Prisma.OrderUncheckedUpdateManyWithoutBuyerNestedInput
+  ordersAsSeller?: Prisma.OrderUncheckedUpdateManyWithoutSellerNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutAssociationNestedInput
 }
 
 export type AssociationCreateWithoutCategoriesInput = {
@@ -393,6 +523,11 @@ export type AssociationCreateWithoutCategoriesInput = {
   email: string
   products?: Prisma.ProductCreateNestedManyWithoutAssociationInput
   transactions?: Prisma.TransactionCreateNestedManyWithoutAssociationInput
+  favorites?: Prisma.FavoriteCreateNestedManyWithoutAssociationInput
+  basketItems?: Prisma.BasketItemCreateNestedManyWithoutAssociationInput
+  ordersAsBuyer?: Prisma.OrderCreateNestedManyWithoutBuyerInput
+  ordersAsSeller?: Prisma.OrderCreateNestedManyWithoutSellerInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutAssociationInput
 }
 
 export type AssociationUncheckedCreateWithoutCategoriesInput = {
@@ -401,6 +536,11 @@ export type AssociationUncheckedCreateWithoutCategoriesInput = {
   email: string
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutAssociationInput
   transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutAssociationInput
+  favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutAssociationInput
+  basketItems?: Prisma.BasketItemUncheckedCreateNestedManyWithoutAssociationInput
+  ordersAsBuyer?: Prisma.OrderUncheckedCreateNestedManyWithoutBuyerInput
+  ordersAsSeller?: Prisma.OrderUncheckedCreateNestedManyWithoutSellerInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutAssociationInput
 }
 
 export type AssociationCreateOrConnectWithoutCategoriesInput = {
@@ -425,6 +565,11 @@ export type AssociationUpdateWithoutCategoriesInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   products?: Prisma.ProductUpdateManyWithoutAssociationNestedInput
   transactions?: Prisma.TransactionUpdateManyWithoutAssociationNestedInput
+  favorites?: Prisma.FavoriteUpdateManyWithoutAssociationNestedInput
+  basketItems?: Prisma.BasketItemUpdateManyWithoutAssociationNestedInput
+  ordersAsBuyer?: Prisma.OrderUpdateManyWithoutBuyerNestedInput
+  ordersAsSeller?: Prisma.OrderUpdateManyWithoutSellerNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutAssociationNestedInput
 }
 
 export type AssociationUncheckedUpdateWithoutCategoriesInput = {
@@ -433,6 +578,11 @@ export type AssociationUncheckedUpdateWithoutCategoriesInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   products?: Prisma.ProductUncheckedUpdateManyWithoutAssociationNestedInput
   transactions?: Prisma.TransactionUncheckedUpdateManyWithoutAssociationNestedInput
+  favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutAssociationNestedInput
+  basketItems?: Prisma.BasketItemUncheckedUpdateManyWithoutAssociationNestedInput
+  ordersAsBuyer?: Prisma.OrderUncheckedUpdateManyWithoutBuyerNestedInput
+  ordersAsSeller?: Prisma.OrderUncheckedUpdateManyWithoutSellerNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutAssociationNestedInput
 }
 
 export type AssociationCreateWithoutTransactionsInput = {
@@ -441,6 +591,11 @@ export type AssociationCreateWithoutTransactionsInput = {
   email: string
   products?: Prisma.ProductCreateNestedManyWithoutAssociationInput
   categories?: Prisma.CategoryCreateNestedManyWithoutAssociationInput
+  favorites?: Prisma.FavoriteCreateNestedManyWithoutAssociationInput
+  basketItems?: Prisma.BasketItemCreateNestedManyWithoutAssociationInput
+  ordersAsBuyer?: Prisma.OrderCreateNestedManyWithoutBuyerInput
+  ordersAsSeller?: Prisma.OrderCreateNestedManyWithoutSellerInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutAssociationInput
 }
 
 export type AssociationUncheckedCreateWithoutTransactionsInput = {
@@ -449,6 +604,11 @@ export type AssociationUncheckedCreateWithoutTransactionsInput = {
   email: string
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutAssociationInput
   categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutAssociationInput
+  favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutAssociationInput
+  basketItems?: Prisma.BasketItemUncheckedCreateNestedManyWithoutAssociationInput
+  ordersAsBuyer?: Prisma.OrderUncheckedCreateNestedManyWithoutBuyerInput
+  ordersAsSeller?: Prisma.OrderUncheckedCreateNestedManyWithoutSellerInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutAssociationInput
 }
 
 export type AssociationCreateOrConnectWithoutTransactionsInput = {
@@ -473,6 +633,11 @@ export type AssociationUpdateWithoutTransactionsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   products?: Prisma.ProductUpdateManyWithoutAssociationNestedInput
   categories?: Prisma.CategoryUpdateManyWithoutAssociationNestedInput
+  favorites?: Prisma.FavoriteUpdateManyWithoutAssociationNestedInput
+  basketItems?: Prisma.BasketItemUpdateManyWithoutAssociationNestedInput
+  ordersAsBuyer?: Prisma.OrderUpdateManyWithoutBuyerNestedInput
+  ordersAsSeller?: Prisma.OrderUpdateManyWithoutSellerNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutAssociationNestedInput
 }
 
 export type AssociationUncheckedUpdateWithoutTransactionsInput = {
@@ -481,6 +646,351 @@ export type AssociationUncheckedUpdateWithoutTransactionsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   products?: Prisma.ProductUncheckedUpdateManyWithoutAssociationNestedInput
   categories?: Prisma.CategoryUncheckedUpdateManyWithoutAssociationNestedInput
+  favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutAssociationNestedInput
+  basketItems?: Prisma.BasketItemUncheckedUpdateManyWithoutAssociationNestedInput
+  ordersAsBuyer?: Prisma.OrderUncheckedUpdateManyWithoutBuyerNestedInput
+  ordersAsSeller?: Prisma.OrderUncheckedUpdateManyWithoutSellerNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutAssociationNestedInput
+}
+
+export type AssociationCreateWithoutFavoritesInput = {
+  id?: string
+  name: string
+  email: string
+  products?: Prisma.ProductCreateNestedManyWithoutAssociationInput
+  categories?: Prisma.CategoryCreateNestedManyWithoutAssociationInput
+  transactions?: Prisma.TransactionCreateNestedManyWithoutAssociationInput
+  basketItems?: Prisma.BasketItemCreateNestedManyWithoutAssociationInput
+  ordersAsBuyer?: Prisma.OrderCreateNestedManyWithoutBuyerInput
+  ordersAsSeller?: Prisma.OrderCreateNestedManyWithoutSellerInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutAssociationInput
+}
+
+export type AssociationUncheckedCreateWithoutFavoritesInput = {
+  id?: string
+  name: string
+  email: string
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutAssociationInput
+  categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutAssociationInput
+  transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutAssociationInput
+  basketItems?: Prisma.BasketItemUncheckedCreateNestedManyWithoutAssociationInput
+  ordersAsBuyer?: Prisma.OrderUncheckedCreateNestedManyWithoutBuyerInput
+  ordersAsSeller?: Prisma.OrderUncheckedCreateNestedManyWithoutSellerInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutAssociationInput
+}
+
+export type AssociationCreateOrConnectWithoutFavoritesInput = {
+  where: Prisma.AssociationWhereUniqueInput
+  create: Prisma.XOR<Prisma.AssociationCreateWithoutFavoritesInput, Prisma.AssociationUncheckedCreateWithoutFavoritesInput>
+}
+
+export type AssociationUpsertWithoutFavoritesInput = {
+  update: Prisma.XOR<Prisma.AssociationUpdateWithoutFavoritesInput, Prisma.AssociationUncheckedUpdateWithoutFavoritesInput>
+  create: Prisma.XOR<Prisma.AssociationCreateWithoutFavoritesInput, Prisma.AssociationUncheckedCreateWithoutFavoritesInput>
+  where?: Prisma.AssociationWhereInput
+}
+
+export type AssociationUpdateToOneWithWhereWithoutFavoritesInput = {
+  where?: Prisma.AssociationWhereInput
+  data: Prisma.XOR<Prisma.AssociationUpdateWithoutFavoritesInput, Prisma.AssociationUncheckedUpdateWithoutFavoritesInput>
+}
+
+export type AssociationUpdateWithoutFavoritesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  products?: Prisma.ProductUpdateManyWithoutAssociationNestedInput
+  categories?: Prisma.CategoryUpdateManyWithoutAssociationNestedInput
+  transactions?: Prisma.TransactionUpdateManyWithoutAssociationNestedInput
+  basketItems?: Prisma.BasketItemUpdateManyWithoutAssociationNestedInput
+  ordersAsBuyer?: Prisma.OrderUpdateManyWithoutBuyerNestedInput
+  ordersAsSeller?: Prisma.OrderUpdateManyWithoutSellerNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutAssociationNestedInput
+}
+
+export type AssociationUncheckedUpdateWithoutFavoritesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  products?: Prisma.ProductUncheckedUpdateManyWithoutAssociationNestedInput
+  categories?: Prisma.CategoryUncheckedUpdateManyWithoutAssociationNestedInput
+  transactions?: Prisma.TransactionUncheckedUpdateManyWithoutAssociationNestedInput
+  basketItems?: Prisma.BasketItemUncheckedUpdateManyWithoutAssociationNestedInput
+  ordersAsBuyer?: Prisma.OrderUncheckedUpdateManyWithoutBuyerNestedInput
+  ordersAsSeller?: Prisma.OrderUncheckedUpdateManyWithoutSellerNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutAssociationNestedInput
+}
+
+export type AssociationCreateWithoutBasketItemsInput = {
+  id?: string
+  name: string
+  email: string
+  products?: Prisma.ProductCreateNestedManyWithoutAssociationInput
+  categories?: Prisma.CategoryCreateNestedManyWithoutAssociationInput
+  transactions?: Prisma.TransactionCreateNestedManyWithoutAssociationInput
+  favorites?: Prisma.FavoriteCreateNestedManyWithoutAssociationInput
+  ordersAsBuyer?: Prisma.OrderCreateNestedManyWithoutBuyerInput
+  ordersAsSeller?: Prisma.OrderCreateNestedManyWithoutSellerInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutAssociationInput
+}
+
+export type AssociationUncheckedCreateWithoutBasketItemsInput = {
+  id?: string
+  name: string
+  email: string
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutAssociationInput
+  categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutAssociationInput
+  transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutAssociationInput
+  favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutAssociationInput
+  ordersAsBuyer?: Prisma.OrderUncheckedCreateNestedManyWithoutBuyerInput
+  ordersAsSeller?: Prisma.OrderUncheckedCreateNestedManyWithoutSellerInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutAssociationInput
+}
+
+export type AssociationCreateOrConnectWithoutBasketItemsInput = {
+  where: Prisma.AssociationWhereUniqueInput
+  create: Prisma.XOR<Prisma.AssociationCreateWithoutBasketItemsInput, Prisma.AssociationUncheckedCreateWithoutBasketItemsInput>
+}
+
+export type AssociationUpsertWithoutBasketItemsInput = {
+  update: Prisma.XOR<Prisma.AssociationUpdateWithoutBasketItemsInput, Prisma.AssociationUncheckedUpdateWithoutBasketItemsInput>
+  create: Prisma.XOR<Prisma.AssociationCreateWithoutBasketItemsInput, Prisma.AssociationUncheckedCreateWithoutBasketItemsInput>
+  where?: Prisma.AssociationWhereInput
+}
+
+export type AssociationUpdateToOneWithWhereWithoutBasketItemsInput = {
+  where?: Prisma.AssociationWhereInput
+  data: Prisma.XOR<Prisma.AssociationUpdateWithoutBasketItemsInput, Prisma.AssociationUncheckedUpdateWithoutBasketItemsInput>
+}
+
+export type AssociationUpdateWithoutBasketItemsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  products?: Prisma.ProductUpdateManyWithoutAssociationNestedInput
+  categories?: Prisma.CategoryUpdateManyWithoutAssociationNestedInput
+  transactions?: Prisma.TransactionUpdateManyWithoutAssociationNestedInput
+  favorites?: Prisma.FavoriteUpdateManyWithoutAssociationNestedInput
+  ordersAsBuyer?: Prisma.OrderUpdateManyWithoutBuyerNestedInput
+  ordersAsSeller?: Prisma.OrderUpdateManyWithoutSellerNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutAssociationNestedInput
+}
+
+export type AssociationUncheckedUpdateWithoutBasketItemsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  products?: Prisma.ProductUncheckedUpdateManyWithoutAssociationNestedInput
+  categories?: Prisma.CategoryUncheckedUpdateManyWithoutAssociationNestedInput
+  transactions?: Prisma.TransactionUncheckedUpdateManyWithoutAssociationNestedInput
+  favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutAssociationNestedInput
+  ordersAsBuyer?: Prisma.OrderUncheckedUpdateManyWithoutBuyerNestedInput
+  ordersAsSeller?: Prisma.OrderUncheckedUpdateManyWithoutSellerNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutAssociationNestedInput
+}
+
+export type AssociationCreateWithoutOrdersAsBuyerInput = {
+  id?: string
+  name: string
+  email: string
+  products?: Prisma.ProductCreateNestedManyWithoutAssociationInput
+  categories?: Prisma.CategoryCreateNestedManyWithoutAssociationInput
+  transactions?: Prisma.TransactionCreateNestedManyWithoutAssociationInput
+  favorites?: Prisma.FavoriteCreateNestedManyWithoutAssociationInput
+  basketItems?: Prisma.BasketItemCreateNestedManyWithoutAssociationInput
+  ordersAsSeller?: Prisma.OrderCreateNestedManyWithoutSellerInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutAssociationInput
+}
+
+export type AssociationUncheckedCreateWithoutOrdersAsBuyerInput = {
+  id?: string
+  name: string
+  email: string
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutAssociationInput
+  categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutAssociationInput
+  transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutAssociationInput
+  favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutAssociationInput
+  basketItems?: Prisma.BasketItemUncheckedCreateNestedManyWithoutAssociationInput
+  ordersAsSeller?: Prisma.OrderUncheckedCreateNestedManyWithoutSellerInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutAssociationInput
+}
+
+export type AssociationCreateOrConnectWithoutOrdersAsBuyerInput = {
+  where: Prisma.AssociationWhereUniqueInput
+  create: Prisma.XOR<Prisma.AssociationCreateWithoutOrdersAsBuyerInput, Prisma.AssociationUncheckedCreateWithoutOrdersAsBuyerInput>
+}
+
+export type AssociationCreateWithoutOrdersAsSellerInput = {
+  id?: string
+  name: string
+  email: string
+  products?: Prisma.ProductCreateNestedManyWithoutAssociationInput
+  categories?: Prisma.CategoryCreateNestedManyWithoutAssociationInput
+  transactions?: Prisma.TransactionCreateNestedManyWithoutAssociationInput
+  favorites?: Prisma.FavoriteCreateNestedManyWithoutAssociationInput
+  basketItems?: Prisma.BasketItemCreateNestedManyWithoutAssociationInput
+  ordersAsBuyer?: Prisma.OrderCreateNestedManyWithoutBuyerInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutAssociationInput
+}
+
+export type AssociationUncheckedCreateWithoutOrdersAsSellerInput = {
+  id?: string
+  name: string
+  email: string
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutAssociationInput
+  categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutAssociationInput
+  transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutAssociationInput
+  favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutAssociationInput
+  basketItems?: Prisma.BasketItemUncheckedCreateNestedManyWithoutAssociationInput
+  ordersAsBuyer?: Prisma.OrderUncheckedCreateNestedManyWithoutBuyerInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutAssociationInput
+}
+
+export type AssociationCreateOrConnectWithoutOrdersAsSellerInput = {
+  where: Prisma.AssociationWhereUniqueInput
+  create: Prisma.XOR<Prisma.AssociationCreateWithoutOrdersAsSellerInput, Prisma.AssociationUncheckedCreateWithoutOrdersAsSellerInput>
+}
+
+export type AssociationUpsertWithoutOrdersAsBuyerInput = {
+  update: Prisma.XOR<Prisma.AssociationUpdateWithoutOrdersAsBuyerInput, Prisma.AssociationUncheckedUpdateWithoutOrdersAsBuyerInput>
+  create: Prisma.XOR<Prisma.AssociationCreateWithoutOrdersAsBuyerInput, Prisma.AssociationUncheckedCreateWithoutOrdersAsBuyerInput>
+  where?: Prisma.AssociationWhereInput
+}
+
+export type AssociationUpdateToOneWithWhereWithoutOrdersAsBuyerInput = {
+  where?: Prisma.AssociationWhereInput
+  data: Prisma.XOR<Prisma.AssociationUpdateWithoutOrdersAsBuyerInput, Prisma.AssociationUncheckedUpdateWithoutOrdersAsBuyerInput>
+}
+
+export type AssociationUpdateWithoutOrdersAsBuyerInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  products?: Prisma.ProductUpdateManyWithoutAssociationNestedInput
+  categories?: Prisma.CategoryUpdateManyWithoutAssociationNestedInput
+  transactions?: Prisma.TransactionUpdateManyWithoutAssociationNestedInput
+  favorites?: Prisma.FavoriteUpdateManyWithoutAssociationNestedInput
+  basketItems?: Prisma.BasketItemUpdateManyWithoutAssociationNestedInput
+  ordersAsSeller?: Prisma.OrderUpdateManyWithoutSellerNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutAssociationNestedInput
+}
+
+export type AssociationUncheckedUpdateWithoutOrdersAsBuyerInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  products?: Prisma.ProductUncheckedUpdateManyWithoutAssociationNestedInput
+  categories?: Prisma.CategoryUncheckedUpdateManyWithoutAssociationNestedInput
+  transactions?: Prisma.TransactionUncheckedUpdateManyWithoutAssociationNestedInput
+  favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutAssociationNestedInput
+  basketItems?: Prisma.BasketItemUncheckedUpdateManyWithoutAssociationNestedInput
+  ordersAsSeller?: Prisma.OrderUncheckedUpdateManyWithoutSellerNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutAssociationNestedInput
+}
+
+export type AssociationUpsertWithoutOrdersAsSellerInput = {
+  update: Prisma.XOR<Prisma.AssociationUpdateWithoutOrdersAsSellerInput, Prisma.AssociationUncheckedUpdateWithoutOrdersAsSellerInput>
+  create: Prisma.XOR<Prisma.AssociationCreateWithoutOrdersAsSellerInput, Prisma.AssociationUncheckedCreateWithoutOrdersAsSellerInput>
+  where?: Prisma.AssociationWhereInput
+}
+
+export type AssociationUpdateToOneWithWhereWithoutOrdersAsSellerInput = {
+  where?: Prisma.AssociationWhereInput
+  data: Prisma.XOR<Prisma.AssociationUpdateWithoutOrdersAsSellerInput, Prisma.AssociationUncheckedUpdateWithoutOrdersAsSellerInput>
+}
+
+export type AssociationUpdateWithoutOrdersAsSellerInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  products?: Prisma.ProductUpdateManyWithoutAssociationNestedInput
+  categories?: Prisma.CategoryUpdateManyWithoutAssociationNestedInput
+  transactions?: Prisma.TransactionUpdateManyWithoutAssociationNestedInput
+  favorites?: Prisma.FavoriteUpdateManyWithoutAssociationNestedInput
+  basketItems?: Prisma.BasketItemUpdateManyWithoutAssociationNestedInput
+  ordersAsBuyer?: Prisma.OrderUpdateManyWithoutBuyerNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutAssociationNestedInput
+}
+
+export type AssociationUncheckedUpdateWithoutOrdersAsSellerInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  products?: Prisma.ProductUncheckedUpdateManyWithoutAssociationNestedInput
+  categories?: Prisma.CategoryUncheckedUpdateManyWithoutAssociationNestedInput
+  transactions?: Prisma.TransactionUncheckedUpdateManyWithoutAssociationNestedInput
+  favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutAssociationNestedInput
+  basketItems?: Prisma.BasketItemUncheckedUpdateManyWithoutAssociationNestedInput
+  ordersAsBuyer?: Prisma.OrderUncheckedUpdateManyWithoutBuyerNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutAssociationNestedInput
+}
+
+export type AssociationCreateWithoutNotificationsInput = {
+  id?: string
+  name: string
+  email: string
+  products?: Prisma.ProductCreateNestedManyWithoutAssociationInput
+  categories?: Prisma.CategoryCreateNestedManyWithoutAssociationInput
+  transactions?: Prisma.TransactionCreateNestedManyWithoutAssociationInput
+  favorites?: Prisma.FavoriteCreateNestedManyWithoutAssociationInput
+  basketItems?: Prisma.BasketItemCreateNestedManyWithoutAssociationInput
+  ordersAsBuyer?: Prisma.OrderCreateNestedManyWithoutBuyerInput
+  ordersAsSeller?: Prisma.OrderCreateNestedManyWithoutSellerInput
+}
+
+export type AssociationUncheckedCreateWithoutNotificationsInput = {
+  id?: string
+  name: string
+  email: string
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutAssociationInput
+  categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutAssociationInput
+  transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutAssociationInput
+  favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutAssociationInput
+  basketItems?: Prisma.BasketItemUncheckedCreateNestedManyWithoutAssociationInput
+  ordersAsBuyer?: Prisma.OrderUncheckedCreateNestedManyWithoutBuyerInput
+  ordersAsSeller?: Prisma.OrderUncheckedCreateNestedManyWithoutSellerInput
+}
+
+export type AssociationCreateOrConnectWithoutNotificationsInput = {
+  where: Prisma.AssociationWhereUniqueInput
+  create: Prisma.XOR<Prisma.AssociationCreateWithoutNotificationsInput, Prisma.AssociationUncheckedCreateWithoutNotificationsInput>
+}
+
+export type AssociationUpsertWithoutNotificationsInput = {
+  update: Prisma.XOR<Prisma.AssociationUpdateWithoutNotificationsInput, Prisma.AssociationUncheckedUpdateWithoutNotificationsInput>
+  create: Prisma.XOR<Prisma.AssociationCreateWithoutNotificationsInput, Prisma.AssociationUncheckedCreateWithoutNotificationsInput>
+  where?: Prisma.AssociationWhereInput
+}
+
+export type AssociationUpdateToOneWithWhereWithoutNotificationsInput = {
+  where?: Prisma.AssociationWhereInput
+  data: Prisma.XOR<Prisma.AssociationUpdateWithoutNotificationsInput, Prisma.AssociationUncheckedUpdateWithoutNotificationsInput>
+}
+
+export type AssociationUpdateWithoutNotificationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  products?: Prisma.ProductUpdateManyWithoutAssociationNestedInput
+  categories?: Prisma.CategoryUpdateManyWithoutAssociationNestedInput
+  transactions?: Prisma.TransactionUpdateManyWithoutAssociationNestedInput
+  favorites?: Prisma.FavoriteUpdateManyWithoutAssociationNestedInput
+  basketItems?: Prisma.BasketItemUpdateManyWithoutAssociationNestedInput
+  ordersAsBuyer?: Prisma.OrderUpdateManyWithoutBuyerNestedInput
+  ordersAsSeller?: Prisma.OrderUpdateManyWithoutSellerNestedInput
+}
+
+export type AssociationUncheckedUpdateWithoutNotificationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  products?: Prisma.ProductUncheckedUpdateManyWithoutAssociationNestedInput
+  categories?: Prisma.CategoryUncheckedUpdateManyWithoutAssociationNestedInput
+  transactions?: Prisma.TransactionUncheckedUpdateManyWithoutAssociationNestedInput
+  favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutAssociationNestedInput
+  basketItems?: Prisma.BasketItemUncheckedUpdateManyWithoutAssociationNestedInput
+  ordersAsBuyer?: Prisma.OrderUncheckedUpdateManyWithoutBuyerNestedInput
+  ordersAsSeller?: Prisma.OrderUncheckedUpdateManyWithoutSellerNestedInput
 }
 
 
@@ -492,12 +1002,22 @@ export type AssociationCountOutputType = {
   products: number
   categories: number
   transactions: number
+  favorites: number
+  basketItems: number
+  ordersAsBuyer: number
+  ordersAsSeller: number
+  notifications: number
 }
 
 export type AssociationCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   products?: boolean | AssociationCountOutputTypeCountProductsArgs
   categories?: boolean | AssociationCountOutputTypeCountCategoriesArgs
   transactions?: boolean | AssociationCountOutputTypeCountTransactionsArgs
+  favorites?: boolean | AssociationCountOutputTypeCountFavoritesArgs
+  basketItems?: boolean | AssociationCountOutputTypeCountBasketItemsArgs
+  ordersAsBuyer?: boolean | AssociationCountOutputTypeCountOrdersAsBuyerArgs
+  ordersAsSeller?: boolean | AssociationCountOutputTypeCountOrdersAsSellerArgs
+  notifications?: boolean | AssociationCountOutputTypeCountNotificationsArgs
 }
 
 /**
@@ -531,6 +1051,41 @@ export type AssociationCountOutputTypeCountTransactionsArgs<ExtArgs extends runt
   where?: Prisma.TransactionWhereInput
 }
 
+/**
+ * AssociationCountOutputType without action
+ */
+export type AssociationCountOutputTypeCountFavoritesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FavoriteWhereInput
+}
+
+/**
+ * AssociationCountOutputType without action
+ */
+export type AssociationCountOutputTypeCountBasketItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BasketItemWhereInput
+}
+
+/**
+ * AssociationCountOutputType without action
+ */
+export type AssociationCountOutputTypeCountOrdersAsBuyerArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.OrderWhereInput
+}
+
+/**
+ * AssociationCountOutputType without action
+ */
+export type AssociationCountOutputTypeCountOrdersAsSellerArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.OrderWhereInput
+}
+
+/**
+ * AssociationCountOutputType without action
+ */
+export type AssociationCountOutputTypeCountNotificationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.NotificationWhereInput
+}
+
 
 export type AssociationSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -539,6 +1094,11 @@ export type AssociationSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   products?: boolean | Prisma.Association$productsArgs<ExtArgs>
   categories?: boolean | Prisma.Association$categoriesArgs<ExtArgs>
   transactions?: boolean | Prisma.Association$transactionsArgs<ExtArgs>
+  favorites?: boolean | Prisma.Association$favoritesArgs<ExtArgs>
+  basketItems?: boolean | Prisma.Association$basketItemsArgs<ExtArgs>
+  ordersAsBuyer?: boolean | Prisma.Association$ordersAsBuyerArgs<ExtArgs>
+  ordersAsSeller?: boolean | Prisma.Association$ordersAsSellerArgs<ExtArgs>
+  notifications?: boolean | Prisma.Association$notificationsArgs<ExtArgs>
   _count?: boolean | Prisma.AssociationCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["association"]>
 
@@ -565,6 +1125,11 @@ export type AssociationInclude<ExtArgs extends runtime.Types.Extensions.Internal
   products?: boolean | Prisma.Association$productsArgs<ExtArgs>
   categories?: boolean | Prisma.Association$categoriesArgs<ExtArgs>
   transactions?: boolean | Prisma.Association$transactionsArgs<ExtArgs>
+  favorites?: boolean | Prisma.Association$favoritesArgs<ExtArgs>
+  basketItems?: boolean | Prisma.Association$basketItemsArgs<ExtArgs>
+  ordersAsBuyer?: boolean | Prisma.Association$ordersAsBuyerArgs<ExtArgs>
+  ordersAsSeller?: boolean | Prisma.Association$ordersAsSellerArgs<ExtArgs>
+  notifications?: boolean | Prisma.Association$notificationsArgs<ExtArgs>
   _count?: boolean | Prisma.AssociationCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type AssociationIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -576,6 +1141,11 @@ export type $AssociationPayload<ExtArgs extends runtime.Types.Extensions.Interna
     products: Prisma.$ProductPayload<ExtArgs>[]
     categories: Prisma.$CategoryPayload<ExtArgs>[]
     transactions: Prisma.$TransactionPayload<ExtArgs>[]
+    favorites: Prisma.$FavoritePayload<ExtArgs>[]
+    basketItems: Prisma.$BasketItemPayload<ExtArgs>[]
+    ordersAsBuyer: Prisma.$OrderPayload<ExtArgs>[]
+    ordersAsSeller: Prisma.$OrderPayload<ExtArgs>[]
+    notifications: Prisma.$NotificationPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -978,6 +1548,11 @@ export interface Prisma__AssociationClient<T, Null = never, ExtArgs extends runt
   products<T extends Prisma.Association$productsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Association$productsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   categories<T extends Prisma.Association$categoriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Association$categoriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   transactions<T extends Prisma.Association$transactionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Association$transactionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  favorites<T extends Prisma.Association$favoritesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Association$favoritesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FavoritePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  basketItems<T extends Prisma.Association$basketItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Association$basketItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BasketItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  ordersAsBuyer<T extends Prisma.Association$ordersAsBuyerArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Association$ordersAsBuyerArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  ordersAsSeller<T extends Prisma.Association$ordersAsSellerArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Association$ordersAsSellerArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  notifications<T extends Prisma.Association$notificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Association$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1470,6 +2045,126 @@ export type Association$transactionsArgs<ExtArgs extends runtime.Types.Extension
   take?: number
   skip?: number
   distinct?: Prisma.TransactionScalarFieldEnum | Prisma.TransactionScalarFieldEnum[]
+}
+
+/**
+ * Association.favorites
+ */
+export type Association$favoritesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Favorite
+   */
+  select?: Prisma.FavoriteSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Favorite
+   */
+  omit?: Prisma.FavoriteOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FavoriteInclude<ExtArgs> | null
+  where?: Prisma.FavoriteWhereInput
+  orderBy?: Prisma.FavoriteOrderByWithRelationInput | Prisma.FavoriteOrderByWithRelationInput[]
+  cursor?: Prisma.FavoriteWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.FavoriteScalarFieldEnum | Prisma.FavoriteScalarFieldEnum[]
+}
+
+/**
+ * Association.basketItems
+ */
+export type Association$basketItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the BasketItem
+   */
+  select?: Prisma.BasketItemSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the BasketItem
+   */
+  omit?: Prisma.BasketItemOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BasketItemInclude<ExtArgs> | null
+  where?: Prisma.BasketItemWhereInput
+  orderBy?: Prisma.BasketItemOrderByWithRelationInput | Prisma.BasketItemOrderByWithRelationInput[]
+  cursor?: Prisma.BasketItemWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.BasketItemScalarFieldEnum | Prisma.BasketItemScalarFieldEnum[]
+}
+
+/**
+ * Association.ordersAsBuyer
+ */
+export type Association$ordersAsBuyerArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Order
+   */
+  select?: Prisma.OrderSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Order
+   */
+  omit?: Prisma.OrderOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OrderInclude<ExtArgs> | null
+  where?: Prisma.OrderWhereInput
+  orderBy?: Prisma.OrderOrderByWithRelationInput | Prisma.OrderOrderByWithRelationInput[]
+  cursor?: Prisma.OrderWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.OrderScalarFieldEnum | Prisma.OrderScalarFieldEnum[]
+}
+
+/**
+ * Association.ordersAsSeller
+ */
+export type Association$ordersAsSellerArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Order
+   */
+  select?: Prisma.OrderSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Order
+   */
+  omit?: Prisma.OrderOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OrderInclude<ExtArgs> | null
+  where?: Prisma.OrderWhereInput
+  orderBy?: Prisma.OrderOrderByWithRelationInput | Prisma.OrderOrderByWithRelationInput[]
+  cursor?: Prisma.OrderWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.OrderScalarFieldEnum | Prisma.OrderScalarFieldEnum[]
+}
+
+/**
+ * Association.notifications
+ */
+export type Association$notificationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Notification
+   */
+  select?: Prisma.NotificationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Notification
+   */
+  omit?: Prisma.NotificationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.NotificationInclude<ExtArgs> | null
+  where?: Prisma.NotificationWhereInput
+  orderBy?: Prisma.NotificationOrderByWithRelationInput | Prisma.NotificationOrderByWithRelationInput[]
+  cursor?: Prisma.NotificationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.NotificationScalarFieldEnum | Prisma.NotificationScalarFieldEnum[]
 }
 
 /**

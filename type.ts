@@ -2,6 +2,7 @@ import { Product as PrismaProduct, Transaction as PrismaTransaction } from "@/sr
 
 export interface Product extends PrismaProduct {
     categoryName: string;
+    associationName?: string;
 }
 
 export interface FormDataType {
@@ -11,7 +12,6 @@ export interface FormDataType {
     price: number;
     quantity?: number;
     categoryId?: string;
-    unit?: string;
     categoryName?: string;
     imageUrl?: string;
 }
@@ -19,7 +19,6 @@ export interface FormDataType {
 export interface OrderItem {
     productId: string;
     quantity: number;
-    unit: string;
     imageUrl: string;
     name: string;
     availableQuantity: number;
@@ -30,7 +29,6 @@ export interface Transaction extends PrismaTransaction {
     productName: string;
     imageUrl?: string;
     price: number;
-    unit: string;
 }
 
 export interface ProductOverviewStats {
@@ -50,4 +48,35 @@ export interface StockSummary {
     lowStockCount: number;
     outOfStockCount: number;
     criticalProducts: Product[];
-   }
+}
+
+export interface BasketItemView {
+    id: string;
+    productId: string;
+    quantity: number;
+    productName: string;
+    price: number;
+    imageUrl: string;
+    availableQuantity: number;
+    associationName: string;
+}
+
+export interface OrderView {
+    id: string;
+    productId: string;
+    productName: string;
+    imageUrl: string;
+    quantity: number;
+    totalPrice: number;
+    status: "pending" | "confirmed" | "denied";
+    createdAt: Date;
+    buyerName?: string;
+    sellerName?: string;
+}
+
+export interface NotificationView {
+    id: string;
+    message: string;
+    read: boolean;
+    createdAt: Date;
+}

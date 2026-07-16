@@ -2,7 +2,7 @@
 
 import { Category } from "@/src/generated/prisma/client";
 import prisma from "@/src/lib/prisma";
-import { FormDataType, Product } from "@/type";
+import { BasketItemView, FormDataType, NotificationView, OrderView, Product } from "@/type";
 import { promises } from "dns";
 
 export async function checkAndAddAssociation(email: string, name: string) {
@@ -137,13 +137,12 @@ export async function readCategory(email: string): Promise<Category[] | undefine
 
 export async function createProduct(formData: FormDataType, email: string) {
     try {
-        const { name, description, price, imageUrl, categoryId, unit } = formData
+        const { name, description, price, imageUrl, categoryId } = formData
         if (!email || !price || !categoryId) {
             throw new Error("L'email, le prix et l'id de catégorie sont requis pour la création du produit.")
         }
 
         const safeImageUrl = imageUrl || ""
-        const safeUnit = unit || ""
 
         const association = await getAssociation(email)
         if (!association) {
@@ -156,7 +155,6 @@ export async function createProduct(formData: FormDataType, email: string) {
                 description,
                 price: Number(price),
                 imageUrl: safeImageUrl,
-                unit: safeUnit,
                 categoryId: categoryId,
                 associationId: association.id,
             }
@@ -315,4 +313,376 @@ export async function replenishStockWithTransaction(productId: string, quantity:
     } catch (error) {
         console.error(error)
     }
+}
+export async function readAllProducts(): Promise<Product[] | undefined> {
+    try {
+        const products = await prisma.product.findMany({
+            include: {
+                category: true,
+                association: true,
+            },
+            orderBy: {
+                createdAt: "desc",
+            }
+        })
+        return products.map(product => ({
+            ...product,
+            categoryName: product.category?.name || "",
+            associationName: product.association?.name || "",
+        }))
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+export async function toggleFavorite(productId: string, email: string) {
+    if (!productId || !email) {
+        throw new Error("Le produit et l'email sont requis pour gérer les favoris.")
+    }
+    const association = await getAssociation(email)
+    if (!association) {
+        throw new Error("Aucune association trouvé avec cet email.")
+    }
+
+    const existing = await prisma.favorite.findUnique({
+        where: {
+            associationId_productId: {
+                associationId: association.id,
+                productId: productId,
+            }
+        }
+    })
+
+    if (existing) {
+        await prisma.favorite.delete({
+            where: { id: existing.id }
+        })
+        return { favorited: false }
+    } else {
+        await prisma.favorite.create({
+            data: {
+                associationId: association.id,
+                productId: productId,
+            }
+        })
+        return { favorited: true }
+    }
+}
+
+export async function readFavoriteProductIds(email: string): Promise<string[] | undefined> {
+    if (!email) return
+    try {
+        const association = await getAssociation(email)
+        if (!association) return []
+        const favorites = await prisma.favorite.findMany({
+            where: { associationId: association.id },
+            select: { productId: true }
+        })
+        return favorites.map(f => f.productId)
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+export async function readFavoriteProducts(email: string): Promise<Product[] | undefined> {
+    if (!email) return
+    try {
+        const association = await getAssociation(email)
+        if (!association) return []
+        const favorites = await prisma.favorite.findMany({
+            where: { associationId: association.id },
+            include: {
+                product: {
+                    include: {
+                        category: true,
+                        association: true,
+                    }
+                }
+            },
+            orderBy: { createdAt: "desc" }
+        })
+        return favorites.map(f => ({
+            ...f.product,
+            categoryName: f.product.category?.name || "",
+            associationName: f.product.association?.name || "",
+        }))
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+// ---------- Basket ----------
+
+export async function addToBasket(productId: string, quantity: number, email: string) {
+    if (!productId || !email || quantity < 1) {
+        throw new Error("Données invalides pour l'ajout au panier.")
+    }
+    const association = await getAssociation(email)
+    if (!association) {
+        throw new Error("Aucune association trouvé avec cet email.")
+    }
+
+    const existing = await prisma.basketItem.findUnique({
+        where: {
+            associationId_productId: {
+                associationId: association.id,
+                productId: productId,
+            }
+        }
+    })
+
+    if (existing) {
+        await prisma.basketItem.update({
+            where: { id: existing.id },
+            data: { quantity: existing.quantity + quantity }
+        })
+    } else {
+        await prisma.basketItem.create({
+            data: {
+                associationId: association.id,
+                productId: productId,
+                quantity: quantity,
+            }
+        })
+    }
+}
+
+export async function readBasket(email: string): Promise<BasketItemView[] | undefined> {
+    if (!email) return
+    const association = await getAssociation(email)
+    if (!association) return []
+
+    const items = await prisma.basketItem.findMany({
+        where: { associationId: association.id },
+        include: {
+            product: {
+                include: { association: true }
+            }
+        },
+        orderBy: { createdAt: "desc" }
+    })
+
+    return items.map(item => ({
+        id: item.id,
+        productId: item.productId,
+        quantity: item.quantity,
+        productName: item.product.name,
+        price: item.product.price,
+        imageUrl: item.product.imageUrl,
+        availableQuantity: item.product.quantity,
+        associationName: item.product.association?.name || "Association inconnue",
+    }))
+}
+
+export async function updateBasketItemQuantity(basketItemId: string, quantity: number, email: string) {
+    if (!basketItemId || !email || quantity < 1) {
+        throw new Error("Données invalides.")
+    }
+    const association = await getAssociation(email)
+    if (!association) {
+        throw new Error("Aucune association trouvé avec cet email.")
+    }
+    await prisma.basketItem.updateMany({
+        where: { id: basketItemId, associationId: association.id },
+        data: { quantity }
+    })
+}
+
+export async function removeFromBasket(basketItemId: string, email: string) {
+    if (!basketItemId || !email) {
+        throw new Error("Données invalides.")
+    }
+    const association = await getAssociation(email)
+    if (!association) {
+        throw new Error("Aucune association trouvé avec cet email.")
+    }
+    await prisma.basketItem.deleteMany({
+        where: { id: basketItemId, associationId: association.id }
+    })
+}
+
+// ---------- Orders ----------
+
+export async function placeOrder(email: string) {
+    if (!email) {
+        throw new Error("Email requis.")
+    }
+    const association = await getAssociation(email)
+    if (!association) {
+        throw new Error("Aucune association trouvé avec cet email.")
+    }
+
+    const basketItems = await prisma.basketItem.findMany({
+        where: { associationId: association.id },
+        include: { product: true }
+    })
+
+    if (basketItems.length === 0) {
+        throw new Error("Votre panier est vide.")
+    }
+
+    for (const item of basketItems) {
+        if (!item.product.associationId) continue
+
+        await prisma.order.create({
+            data: {
+                buyerId: association.id,
+                sellerId: item.product.associationId,
+                productId: item.productId,
+                quantity: item.quantity,
+                totalPrice: item.product.price * item.quantity,
+                status: "pending",
+            }
+        })
+
+        await prisma.notification.create({
+            data: {
+                associationId: item.product.associationId,
+                message: `${association.name} souhaite commander ${item.quantity} x "${item.product.name}".`,
+            }
+        })
+    }
+
+    await prisma.basketItem.deleteMany({
+        where: { associationId: association.id }
+    })
+}
+
+export async function readMyOrders(email: string): Promise<OrderView[] | undefined> {
+    if (!email) return
+    const association = await getAssociation(email)
+    if (!association) return []
+
+    const orders = await prisma.order.findMany({
+        where: { buyerId: association.id },
+        include: {
+            product: true,
+            seller: true,
+        },
+        orderBy: { createdAt: "desc" }
+    })
+
+    return orders.map(order => ({
+        id: order.id,
+        productId: order.productId,
+        productName: order.product.name,
+        imageUrl: order.product.imageUrl,
+        quantity: order.quantity,
+        totalPrice: order.totalPrice,
+        status: order.status as "pending" | "confirmed" | "denied",
+        createdAt: order.createdAt,
+        sellerName: order.seller.name,
+    }))
+}
+
+export async function readIncomingOrders(email: string): Promise<OrderView[] | undefined> {
+    if (!email) return
+    const association = await getAssociation(email)
+    if (!association) return []
+
+    const orders = await prisma.order.findMany({
+        where: { sellerId: association.id },
+        include: {
+            product: true,
+            buyer: true,
+        },
+        orderBy: { createdAt: "desc" }
+    })
+
+    return orders.map(order => ({
+        id: order.id,
+        productId: order.productId,
+        productName: order.product.name,
+        imageUrl: order.product.imageUrl,
+        quantity: order.quantity,
+        totalPrice: order.totalPrice,
+        status: order.status as "pending" | "confirmed" | "denied",
+        createdAt: order.createdAt,
+        buyerName: order.buyer.name,
+    }))
+}
+
+export async function respondToOrder(orderId: string, status: "confirmed" | "denied", email: string) {
+    if (!orderId || !email) {
+        throw new Error("Données invalides.")
+    }
+    const association = await getAssociation(email)
+    if (!association) {
+        throw new Error("Aucune association trouvé avec cet email.")
+    }
+
+    const order = await prisma.order.findUnique({
+        where: { id: orderId },
+        include: { product: true, buyer: true }
+    })
+
+    if (!order || order.sellerId !== association.id) {
+        throw new Error("Commande introuvable.")
+    }
+
+    if (order.status !== "pending") {
+        throw new Error("Cette commande a déjà été traitée.")
+    }
+
+    if (status === "confirmed") {
+        if (order.product.quantity < order.quantity) {
+            throw new Error("Stock insuffisant pour confirmer cette commande.")
+        }
+        await prisma.product.update({
+            where: { id: order.productId },
+            data: { quantity: order.product.quantity - order.quantity }
+        })
+    }
+
+    await prisma.order.update({
+        where: { id: orderId },
+        data: { status }
+    })
+
+    await prisma.notification.create({
+        data: {
+            associationId: order.buyerId,
+            message: status === "confirmed"
+                ? `Votre commande de "${order.product.name}" a été confirmée par ${association.name}.`
+                : `Votre commande de "${order.product.name}" a été refusée par ${association.name}.`,
+        }
+    })
+}
+
+// ---------- Notifications ----------
+
+export async function readNotifications(email: string): Promise<NotificationView[] | undefined> {
+    if (!email) return
+    const association = await getAssociation(email)
+    if (!association) return []
+
+    const notifications = await prisma.notification.findMany({
+        where: { associationId: association.id },
+        orderBy: { createdAt: "desc" },
+        take: 30,
+    })
+
+    return notifications
+}
+
+export async function markNotificationRead(notificationId: string, email: string) {
+    if (!notificationId || !email) return
+    const association = await getAssociation(email)
+    if (!association) return
+
+    await prisma.notification.updateMany({
+        where: { id: notificationId, associationId: association.id },
+        data: { read: true }
+    })
+}
+
+export async function markAllNotificationsRead(email: string) {
+    if (!email) return
+    const association = await getAssociation(email)
+    if (!association) return
+
+    await prisma.notification.updateMany({
+        where: { associationId: association.id, read: false },
+        data: { read: true }
+    })
 }
