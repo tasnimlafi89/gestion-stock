@@ -137,7 +137,7 @@ export async function readCategory(email: string): Promise<Category[] | undefine
 
 export async function createProduct(formData: FormDataType, email: string) {
     try {
-        const { name, description, price, imageUrl, categoryId } = formData
+        const { name, description, price, imageUrl, categoryId, quantity, storageLocation, owner } = formData
         if (!email || !price || !categoryId) {
             throw new Error("L'email, le prix et l'id de catégorie sont requis pour la création du produit.")
         }
@@ -154,6 +154,9 @@ export async function createProduct(formData: FormDataType, email: string) {
                 name,
                 description,
                 price: Number(price),
+                quantity: quantity ? Number(quantity) : 0,
+                storageLocation: storageLocation || null,
+                owner: owner || null,
                 imageUrl: safeImageUrl,
                 categoryId: categoryId,
                 associationId: association.id,

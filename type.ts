@@ -11,6 +11,8 @@ export interface FormDataType {
     description: string;
     price: number;
     quantity?: number;
+    storageLocation?: string;
+    owner?: string;
     categoryId?: string;
     categoryName?: string;
     imageUrl?: string;

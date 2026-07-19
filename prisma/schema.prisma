@@ -8,13 +8,13 @@ datasource db {
 }
 
 model Association {
-  id             String         @id @default(uuid())
-  name           String
-  email          String         @unique
-  products       Product[]
-  categories     Category[]
-  transactions   Transaction[]
-  favorites      Favorite[]
+  id           String        @id @default(uuid())
+  name         String
+  email        String        @unique
+  products     Product[]
+  categories   Category[]
+  transactions Transaction[]
+  favorites    Favorite[]
   basketItems    BasketItem[]   @relation("BasketOwner")
   ordersAsBuyer  Order[]        @relation("BuyerOrders")
   ordersAsSeller Order[]        @relation("SellerOrders")
@@ -22,22 +22,24 @@ model Association {
 }
 
 model Product {
-  id             String        @id @default(uuid())
-  name           String
-  description    String
-  price          Float
-  quantity       Int           @default(0)
-  imageUrl       String
-  categoryId     String
-  associationId  String?
-  category       Category      @relation(fields: [categoryId], references: [id], onDelete: Cascade)
-  association    Association?  @relation(fields: [associationId], references: [id])
-  transactions   Transaction[]
-  favorites      Favorite[]
-  basketItems    BasketItem[]
-  orders         Order[]
-  createdAt      DateTime      @default(now())
-  updatedAt      DateTime      @updatedAt
+  id               String        @id @default(uuid())
+  name             String
+  description      String
+  price            Float
+  quantity         Int           @default(0)
+  storageLocation  String?
+  owner            String?
+  imageUrl         String
+  categoryId       String
+  associationId    String?
+  category         Category      @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  association      Association?  @relation(fields: [associationId], references: [id])
+  transactions     Transaction[]
+  favorites        Favorite[]
+  basketItems      BasketItem[]
+  orders           Order[]
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
 }
 
 model Category {

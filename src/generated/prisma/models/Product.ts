@@ -42,6 +42,8 @@ export type ProductMinAggregateOutputType = {
   description: string | null
   price: number | null
   quantity: number | null
+  storageLocation: string | null
+  owner: string | null
   imageUrl: string | null
   categoryId: string | null
   associationId: string | null
@@ -55,6 +57,8 @@ export type ProductMaxAggregateOutputType = {
   description: string | null
   price: number | null
   quantity: number | null
+  storageLocation: string | null
+  owner: string | null
   imageUrl: string | null
   categoryId: string | null
   associationId: string | null
@@ -68,6 +72,8 @@ export type ProductCountAggregateOutputType = {
   description: number
   price: number
   quantity: number
+  storageLocation: number
+  owner: number
   imageUrl: number
   categoryId: number
   associationId: number
@@ -93,6 +99,8 @@ export type ProductMinAggregateInputType = {
   description?: true
   price?: true
   quantity?: true
+  storageLocation?: true
+  owner?: true
   imageUrl?: true
   categoryId?: true
   associationId?: true
@@ -106,6 +114,8 @@ export type ProductMaxAggregateInputType = {
   description?: true
   price?: true
   quantity?: true
+  storageLocation?: true
+  owner?: true
   imageUrl?: true
   categoryId?: true
   associationId?: true
@@ -119,6 +129,8 @@ export type ProductCountAggregateInputType = {
   description?: true
   price?: true
   quantity?: true
+  storageLocation?: true
+  owner?: true
   imageUrl?: true
   categoryId?: true
   associationId?: true
@@ -219,6 +231,8 @@ export type ProductGroupByOutputType = {
   description: string
   price: number
   quantity: number
+  storageLocation: string | null
+  owner: string | null
   imageUrl: string
   categoryId: string
   associationId: string | null
@@ -255,6 +269,8 @@ export type ProductWhereInput = {
   description?: Prisma.StringFilter<"Product"> | string
   price?: Prisma.FloatFilter<"Product"> | number
   quantity?: Prisma.IntFilter<"Product"> | number
+  storageLocation?: Prisma.StringNullableFilter<"Product"> | string | null
+  owner?: Prisma.StringNullableFilter<"Product"> | string | null
   imageUrl?: Prisma.StringFilter<"Product"> | string
   categoryId?: Prisma.StringFilter<"Product"> | string
   associationId?: Prisma.StringNullableFilter<"Product"> | string | null
@@ -274,6 +290,8 @@ export type ProductOrderByWithRelationInput = {
   description?: Prisma.SortOrder
   price?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
+  storageLocation?: Prisma.SortOrderInput | Prisma.SortOrder
+  owner?: Prisma.SortOrderInput | Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
   categoryId?: Prisma.SortOrder
   associationId?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -296,6 +314,8 @@ export type ProductWhereUniqueInput = Prisma.AtLeast<{
   description?: Prisma.StringFilter<"Product"> | string
   price?: Prisma.FloatFilter<"Product"> | number
   quantity?: Prisma.IntFilter<"Product"> | number
+  storageLocation?: Prisma.StringNullableFilter<"Product"> | string | null
+  owner?: Prisma.StringNullableFilter<"Product"> | string | null
   imageUrl?: Prisma.StringFilter<"Product"> | string
   categoryId?: Prisma.StringFilter<"Product"> | string
   associationId?: Prisma.StringNullableFilter<"Product"> | string | null
@@ -315,6 +335,8 @@ export type ProductOrderByWithAggregationInput = {
   description?: Prisma.SortOrder
   price?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
+  storageLocation?: Prisma.SortOrderInput | Prisma.SortOrder
+  owner?: Prisma.SortOrderInput | Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
   categoryId?: Prisma.SortOrder
   associationId?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -336,6 +358,8 @@ export type ProductScalarWhereWithAggregatesInput = {
   description?: Prisma.StringWithAggregatesFilter<"Product"> | string
   price?: Prisma.FloatWithAggregatesFilter<"Product"> | number
   quantity?: Prisma.IntWithAggregatesFilter<"Product"> | number
+  storageLocation?: Prisma.StringNullableWithAggregatesFilter<"Product"> | string | null
+  owner?: Prisma.StringNullableWithAggregatesFilter<"Product"> | string | null
   imageUrl?: Prisma.StringWithAggregatesFilter<"Product"> | string
   categoryId?: Prisma.StringWithAggregatesFilter<"Product"> | string
   associationId?: Prisma.StringNullableWithAggregatesFilter<"Product"> | string | null
@@ -349,6 +373,8 @@ export type ProductCreateInput = {
   description: string
   price: number
   quantity?: number
+  storageLocation?: string | null
+  owner?: string | null
   imageUrl: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -366,6 +392,8 @@ export type ProductUncheckedCreateInput = {
   description: string
   price: number
   quantity?: number
+  storageLocation?: string | null
+  owner?: string | null
   imageUrl: string
   categoryId: string
   associationId?: string | null
@@ -383,6 +411,8 @@ export type ProductUpdateInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.FloatFieldUpdateOperationsInput | number
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  storageLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  owner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -400,6 +430,8 @@ export type ProductUncheckedUpdateInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.FloatFieldUpdateOperationsInput | number
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  storageLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  owner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   categoryId?: Prisma.StringFieldUpdateOperationsInput | string
   associationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -417,6 +449,8 @@ export type ProductCreateManyInput = {
   description: string
   price: number
   quantity?: number
+  storageLocation?: string | null
+  owner?: string | null
   imageUrl: string
   categoryId: string
   associationId?: string | null
@@ -430,6 +464,8 @@ export type ProductUpdateManyMutationInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.FloatFieldUpdateOperationsInput | number
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  storageLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  owner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -441,6 +477,8 @@ export type ProductUncheckedUpdateManyInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.FloatFieldUpdateOperationsInput | number
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  storageLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  owner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   categoryId?: Prisma.StringFieldUpdateOperationsInput | string
   associationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -464,6 +502,8 @@ export type ProductCountOrderByAggregateInput = {
   description?: Prisma.SortOrder
   price?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
+  storageLocation?: Prisma.SortOrder
+  owner?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
   categoryId?: Prisma.SortOrder
   associationId?: Prisma.SortOrder
@@ -482,6 +522,8 @@ export type ProductMaxOrderByAggregateInput = {
   description?: Prisma.SortOrder
   price?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
+  storageLocation?: Prisma.SortOrder
+  owner?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
   categoryId?: Prisma.SortOrder
   associationId?: Prisma.SortOrder
@@ -495,6 +537,8 @@ export type ProductMinOrderByAggregateInput = {
   description?: Prisma.SortOrder
   price?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
+  storageLocation?: Prisma.SortOrder
+  owner?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
   categoryId?: Prisma.SortOrder
   associationId?: Prisma.SortOrder
@@ -570,12 +614,12 @@ export type IntFieldUpdateOperationsInput = {
   divide?: number
 }
 
-export type DateTimeFieldUpdateOperationsInput = {
-  set?: Date | string
-}
-
 export type NullableStringFieldUpdateOperationsInput = {
   set?: string | null
+}
+
+export type DateTimeFieldUpdateOperationsInput = {
+  set?: Date | string
 }
 
 export type ProductCreateNestedManyWithoutCategoryInput = {
@@ -682,6 +726,8 @@ export type ProductCreateWithoutAssociationInput = {
   description: string
   price: number
   quantity?: number
+  storageLocation?: string | null
+  owner?: string | null
   imageUrl: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -698,6 +744,8 @@ export type ProductUncheckedCreateWithoutAssociationInput = {
   description: string
   price: number
   quantity?: number
+  storageLocation?: string | null
+  owner?: string | null
   imageUrl: string
   categoryId: string
   createdAt?: Date | string
@@ -742,6 +790,8 @@ export type ProductScalarWhereInput = {
   description?: Prisma.StringFilter<"Product"> | string
   price?: Prisma.FloatFilter<"Product"> | number
   quantity?: Prisma.IntFilter<"Product"> | number
+  storageLocation?: Prisma.StringNullableFilter<"Product"> | string | null
+  owner?: Prisma.StringNullableFilter<"Product"> | string | null
   imageUrl?: Prisma.StringFilter<"Product"> | string
   categoryId?: Prisma.StringFilter<"Product"> | string
   associationId?: Prisma.StringNullableFilter<"Product"> | string | null
@@ -755,6 +805,8 @@ export type ProductCreateWithoutCategoryInput = {
   description: string
   price: number
   quantity?: number
+  storageLocation?: string | null
+  owner?: string | null
   imageUrl: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -771,6 +823,8 @@ export type ProductUncheckedCreateWithoutCategoryInput = {
   description: string
   price: number
   quantity?: number
+  storageLocation?: string | null
+  owner?: string | null
   imageUrl: string
   associationId?: string | null
   createdAt?: Date | string
@@ -812,6 +866,8 @@ export type ProductCreateWithoutTransactionsInput = {
   description: string
   price: number
   quantity?: number
+  storageLocation?: string | null
+  owner?: string | null
   imageUrl: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -828,6 +884,8 @@ export type ProductUncheckedCreateWithoutTransactionsInput = {
   description: string
   price: number
   quantity?: number
+  storageLocation?: string | null
+  owner?: string | null
   imageUrl: string
   categoryId: string
   associationId?: string | null
@@ -860,6 +918,8 @@ export type ProductUpdateWithoutTransactionsInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.FloatFieldUpdateOperationsInput | number
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  storageLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  owner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -876,6 +936,8 @@ export type ProductUncheckedUpdateWithoutTransactionsInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.FloatFieldUpdateOperationsInput | number
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  storageLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  owner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   categoryId?: Prisma.StringFieldUpdateOperationsInput | string
   associationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -892,6 +954,8 @@ export type ProductCreateWithoutFavoritesInput = {
   description: string
   price: number
   quantity?: number
+  storageLocation?: string | null
+  owner?: string | null
   imageUrl: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -908,6 +972,8 @@ export type ProductUncheckedCreateWithoutFavoritesInput = {
   description: string
   price: number
   quantity?: number
+  storageLocation?: string | null
+  owner?: string | null
   imageUrl: string
   categoryId: string
   associationId?: string | null
@@ -940,6 +1006,8 @@ export type ProductUpdateWithoutFavoritesInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.FloatFieldUpdateOperationsInput | number
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  storageLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  owner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -956,6 +1024,8 @@ export type ProductUncheckedUpdateWithoutFavoritesInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.FloatFieldUpdateOperationsInput | number
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  storageLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  owner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   categoryId?: Prisma.StringFieldUpdateOperationsInput | string
   associationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -972,6 +1042,8 @@ export type ProductCreateWithoutBasketItemsInput = {
   description: string
   price: number
   quantity?: number
+  storageLocation?: string | null
+  owner?: string | null
   imageUrl: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -988,6 +1060,8 @@ export type ProductUncheckedCreateWithoutBasketItemsInput = {
   description: string
   price: number
   quantity?: number
+  storageLocation?: string | null
+  owner?: string | null
   imageUrl: string
   categoryId: string
   associationId?: string | null
@@ -1020,6 +1094,8 @@ export type ProductUpdateWithoutBasketItemsInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.FloatFieldUpdateOperationsInput | number
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  storageLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  owner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1036,6 +1112,8 @@ export type ProductUncheckedUpdateWithoutBasketItemsInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.FloatFieldUpdateOperationsInput | number
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  storageLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  owner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   categoryId?: Prisma.StringFieldUpdateOperationsInput | string
   associationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1052,6 +1130,8 @@ export type ProductCreateWithoutOrdersInput = {
   description: string
   price: number
   quantity?: number
+  storageLocation?: string | null
+  owner?: string | null
   imageUrl: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1068,6 +1148,8 @@ export type ProductUncheckedCreateWithoutOrdersInput = {
   description: string
   price: number
   quantity?: number
+  storageLocation?: string | null
+  owner?: string | null
   imageUrl: string
   categoryId: string
   associationId?: string | null
@@ -1100,6 +1182,8 @@ export type ProductUpdateWithoutOrdersInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.FloatFieldUpdateOperationsInput | number
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  storageLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  owner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1116,6 +1200,8 @@ export type ProductUncheckedUpdateWithoutOrdersInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.FloatFieldUpdateOperationsInput | number
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  storageLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  owner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   categoryId?: Prisma.StringFieldUpdateOperationsInput | string
   associationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1132,6 +1218,8 @@ export type ProductCreateManyAssociationInput = {
   description: string
   price: number
   quantity?: number
+  storageLocation?: string | null
+  owner?: string | null
   imageUrl: string
   categoryId: string
   createdAt?: Date | string
@@ -1144,6 +1232,8 @@ export type ProductUpdateWithoutAssociationInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.FloatFieldUpdateOperationsInput | number
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  storageLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  owner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1160,6 +1250,8 @@ export type ProductUncheckedUpdateWithoutAssociationInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.FloatFieldUpdateOperationsInput | number
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  storageLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  owner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   categoryId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1176,6 +1268,8 @@ export type ProductUncheckedUpdateManyWithoutAssociationInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.FloatFieldUpdateOperationsInput | number
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  storageLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  owner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   categoryId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1188,6 +1282,8 @@ export type ProductCreateManyCategoryInput = {
   description: string
   price: number
   quantity?: number
+  storageLocation?: string | null
+  owner?: string | null
   imageUrl: string
   associationId?: string | null
   createdAt?: Date | string
@@ -1200,6 +1296,8 @@ export type ProductUpdateWithoutCategoryInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.FloatFieldUpdateOperationsInput | number
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  storageLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  owner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1216,6 +1314,8 @@ export type ProductUncheckedUpdateWithoutCategoryInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.FloatFieldUpdateOperationsInput | number
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  storageLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  owner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   associationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1232,6 +1332,8 @@ export type ProductUncheckedUpdateManyWithoutCategoryInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.FloatFieldUpdateOperationsInput | number
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  storageLocation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  owner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   associationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1302,6 +1404,8 @@ export type ProductSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   description?: boolean
   price?: boolean
   quantity?: boolean
+  storageLocation?: boolean
+  owner?: boolean
   imageUrl?: boolean
   categoryId?: boolean
   associationId?: boolean
@@ -1322,6 +1426,8 @@ export type ProductSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   description?: boolean
   price?: boolean
   quantity?: boolean
+  storageLocation?: boolean
+  owner?: boolean
   imageUrl?: boolean
   categoryId?: boolean
   associationId?: boolean
@@ -1337,6 +1443,8 @@ export type ProductSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   description?: boolean
   price?: boolean
   quantity?: boolean
+  storageLocation?: boolean
+  owner?: boolean
   imageUrl?: boolean
   categoryId?: boolean
   associationId?: boolean
@@ -1352,6 +1460,8 @@ export type ProductSelectScalar = {
   description?: boolean
   price?: boolean
   quantity?: boolean
+  storageLocation?: boolean
+  owner?: boolean
   imageUrl?: boolean
   categoryId?: boolean
   associationId?: boolean
@@ -1359,7 +1469,7 @@ export type ProductSelectScalar = {
   updatedAt?: boolean
 }
 
-export type ProductOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "price" | "quantity" | "imageUrl" | "categoryId" | "associationId" | "createdAt" | "updatedAt", ExtArgs["result"]["product"]>
+export type ProductOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "price" | "quantity" | "storageLocation" | "owner" | "imageUrl" | "categoryId" | "associationId" | "createdAt" | "updatedAt", ExtArgs["result"]["product"]>
 export type ProductInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   category?: boolean | Prisma.CategoryDefaultArgs<ExtArgs>
   association?: boolean | Prisma.Product$associationArgs<ExtArgs>
@@ -1394,6 +1504,8 @@ export type $ProductPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     description: string
     price: number
     quantity: number
+    storageLocation: string | null
+    owner: string | null
     imageUrl: string
     categoryId: string
     associationId: string | null
@@ -1833,6 +1945,8 @@ export interface ProductFieldRefs {
   readonly description: Prisma.FieldRef<"Product", 'String'>
   readonly price: Prisma.FieldRef<"Product", 'Float'>
   readonly quantity: Prisma.FieldRef<"Product", 'Int'>
+  readonly storageLocation: Prisma.FieldRef<"Product", 'String'>
+  readonly owner: Prisma.FieldRef<"Product", 'String'>
   readonly imageUrl: Prisma.FieldRef<"Product", 'String'>
   readonly categoryId: Prisma.FieldRef<"Product", 'String'>
   readonly associationId: Prisma.FieldRef<"Product", 'String'>

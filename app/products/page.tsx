@@ -8,9 +8,8 @@ import { deleteProduct, readCategory, readProducts } from "../action";
 import EmptyState from "../components/EmptyState";
 import ProductImage from "../components/ProductImage";
 import Link from "next/link";
-import { ChevronDown, ChevronUp, ChevronsUpDown, Trash } from "lucide-react";
+import { ChevronDown, ChevronUp, ChevronsUpDown, Search, Trash } from "lucide-react";
 import { toast } from "react-toastify";
-import RequireAuth from "../components/RequireAuth";
 
 type SortKey = "name" | "price" | "quantity" | "categoryName" | "createdAt";
 type SortDirection = "asc" | "desc";
@@ -22,6 +21,7 @@ const page = () => {
     const [products, setProducts] = useState<Product[]>([]);
     const [categories, setCategories] = useState<Category[]>([]);
     const [categoryFilter, setCategoryFilter] = useState<string>("");
+    const [search, setSearch] = useState<string>("");
     const [sortKey, setSortKey] = useState<SortKey | null>(null);
     const [sortDirection, setSortDirection] = useState<SortDirection>("asc");
     const [initialLoading, setInitialLoading] = useState(true)
@@ -83,6 +83,11 @@ const page = () => {
             result = result.filter((p) => p.categoryId === categoryFilter);
         }
 
+        if (search.trim()) {
+            const term = search.trim().toLowerCase();
+            result = result.filter((p) => p.name.toLowerCase().includes(term));
+        }
+
         if (sortKey) {
             result.sort((a, b) => {
                 let comparison = 0;
@@ -110,7 +115,7 @@ const page = () => {
         }
 
         return result;
-    }, [products, categoryFilter, sortKey, sortDirection]);
+    }, [products, categoryFilter, search, sortKey, sortDirection]);
 
     const handleDeleteProduct = async (product: Product) => {
         const confirmDelete = confirm("Voulez-vous vraiment supprimer ce produit ?");
@@ -155,103 +160,123 @@ const page = () => {
     if (initialLoading) {
         return (
             <div className="flex justify-center items-center min-h-screen w-full">
-                <span className="loading loading-ring" style={{ width: '4rem', height: '4rem' }}></span>
+                <span className="loading loading-ring loading-xl"></span>
             </div>
         )
     }
 
     return (
-        <RequireAuth>
-            <Wrapper>
-                <div className="flex flex-wrap gap-4 mb-4 items-end">
+        <Wrapper>
+            <div className="flex flex-wrap gap-4 mb-4 items-end">
+                <div>
+                    <label className="block text-sm font-semibold mb-1">Rechercher</label>
+                    <label className="input input-bordered flex items-center gap-2">
+                        <Search className="w-4 h-4 opacity-50" />
+                        <input
+                            type="text"
+                            className="grow"
+                            placeholder="Nom du produit..."
+                            value={search}
+                            onChange={(e) => setSearch(e.target.value)}
+                        />
+                    </label>
+                </div>
+
+                <div>
+                    <label className="block text-sm font-semibold mb-1">Catégorie</label>
+                    <select
+                        className="select select-bordered"
+                        value={categoryFilter}
+                        onChange={(e) => setCategoryFilter(e.target.value)}
+                    >
+                        <option value="">Toutes les catégories</option>
+                        {categories.map((cat) => (
+                            <option key={cat.id} value={cat.id}>{cat.name}</option>
+                        ))}
+                    </select>
+                </div>
+            </div>
+
+            <div className="overflow-x-auto">
+                {visibleProducts.length === 0 ? (
                     <div>
-                        <label className="block text-sm font-semibold mb-1">Catégorie</label>
-                        <select
-                            className="select select-bordered"
-                            value={categoryFilter}
-                            onChange={(e) => setCategoryFilter(e.target.value)}
-                        >
-                            <option value="">Toutes les catégories</option>
-                            {categories.map((cat) => (
-                                <option key={cat.id} value={cat.id}>{cat.name}</option>
-                            ))}
-                        </select>
+                        <EmptyState
+                            message='Aucun produit disponible'
+                            IconComponent='PackageSearch'
+                        />
                     </div>
-                </div>
+                ) : (
+                    <table className="table">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Image</th>
+                                {sortableHeader("Nom", "name")}
+                                <th>Description</th>
+                                {sortableHeader("Prix", "price")}
+                                {sortableHeader("Quantité", "quantity")}
+                                <th>Lieu de stockage</th>
+                                <th>Propriétaire</th>
+                                {sortableHeader("Catégorie", "categoryName")}
+                                {sortableHeader("Date d'ajout", "createdAt")}
+                                <th>Actions</th>
+                            </tr>
 
-                <div className="overflow-x-auto">
-                    {visibleProducts.length === 0 ? (
-                        <div>
-                            <EmptyState
-                                message='Aucun produit disponible'
-                                IconComponent='PackageSearch'
-                            />
-                        </div>
-                    ) : (
-                        <table className="table">
-                            <thead>
-                                <tr>
-                                    <th></th>
-                                    <th>Image</th>
-                                    {sortableHeader("Nom", "name")}
-                                    <th>Description</th>
-                                    {sortableHeader("Prix", "price")}
-                                    {sortableHeader("Quantité", "quantity")}
-                                    {sortableHeader("Catégorie", "categoryName")}
-                                    {sortableHeader("Date d'ajout", "createdAt")}
-                                    <th>Actions</th>
+                        </thead>
+                        <tbody>
+                            {visibleProducts.map((product, index) => (
+                                <tr key={product.id}>
+                                    <th>{index + 1}</th>
+                                    <td>
+                                        <ProductImage
+                                            src={product.imageUrl}
+                                            alt={product.imageUrl}
+                                            heightClass='h-12'
+                                            widthClass='w-12'
+                                        />
+                                    </td>
+                                    <td>
+                                        {product.name}
+                                    </td>
+                                    <td>
+                                        {product.description}
+                                    </td>
+                                    <td>
+                                        {product.price} TND
+                                    </td>
+                                    <td>
+                                        {product.quantity}
+                                    </td>
+                                    <td>
+                                        {product.storageLocation || "-"}
+                                    </td>
+                                    <td>
+                                        {product.owner || "-"}
+                                    </td>
+                                    <td>
+                                        {product.categoryName}
+                                    </td>
+                                    <td>
+                                        {new Date(product.createdAt).toLocaleDateString("fr-FR")}
+                                    </td>
+                                    <td>
+                                        <div className="flex gap-2 flex-col">
+                                            <Link className="btn btn-xs w-fit btn-primary" href={`/update-product/${product.id}`}>
+                                                Modifier
+                                            </Link>
+                                            <button className="btn btn-xs w-fit btn-danger" onClick={() => handleDeleteProduct(product)}>
+                                                <Trash className="w-4 h-4" />
+                                            </button>
+                                        </div>
+                                    </td>
                                 </tr>
+                            ))}
+                        </tbody>
 
-                            </thead>
-                            <tbody>
-                                {visibleProducts.map((product, index) => (
-                                    <tr key={product.id}>
-                                        <th>{index + 1}</th>
-                                        <td>
-                                            <ProductImage
-                                                src={product.imageUrl}
-                                                alt={product.imageUrl}
-                                                heightClass='h-12'
-                                                widthClass='w-12'
-                                            />
-                                        </td>
-                                        <td>
-                                            {product.name}
-                                        </td>
-                                        <td>
-                                            {product.description}
-                                        </td>
-                                        <td>
-                                            {product.price} TND
-                                        </td>
-                                        <td>
-                                            {product.quantity}
-                                        </td>
-                                        <td>
-                                            {product.categoryName}
-                                        </td>
-                                        <td>
-                                            {new Date(product.createdAt).toLocaleDateString("fr-FR")}
-                                        </td>
-                                        <td>
-                                            <div className="flex gap-2 flex-col">
-                                                <Link className="btn btn-xs w-fit btn-primary" href={`/update-product/${product.id}`}>
-                                                    Modifier
-                                                </Link>
-                                                <button className="btn btn-xs w-fit btn-danger" onClick={() => handleDeleteProduct(product)}>
-                                                    <Trash className="w-4 h-4" />
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-
-                        </table>
-                    )}
-                </div>
-            </Wrapper>
-        </RequireAuth>
+                    </table>
+                )}
+            </div>
+        </Wrapper>
     );
 };
 
